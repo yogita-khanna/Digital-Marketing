@@ -6,10 +6,10 @@ const jwt = require('jsonwebtoken');
 const requireAuth = (req, res, next) =>{
   const token1 = req.cookies.jwt;
   var token2 = false;
-  if(!req.cookies.email){
+  if(!req.cookies.username){
     res.send('No student is Authorised')
   }
-  User.find({email : req.cookies.email}).then(val =>{
+  User.find({username : req.cookies.username}).then(val =>{
     if(val[0].role === 'admin'){
       token2 = true;
       if(token1 && token2){
