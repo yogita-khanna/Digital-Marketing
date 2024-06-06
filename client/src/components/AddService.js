@@ -29,7 +29,7 @@ const AddService = () => {
     e.preventDefault();
     let newServiceData = {...serviceData,token:localStorage.getItem("jwt") }
     try {
-      await axios.post("http://localhost:8585/api/services/add", newServiceData);
+      await axios.post("https://digital-marketing-liart-three.vercel.app/api/services/add", newServiceData);
       setMessage("Service added successfully");
       setServiceData({ title: "", description: "", icon: "" });
     } catch (error) {

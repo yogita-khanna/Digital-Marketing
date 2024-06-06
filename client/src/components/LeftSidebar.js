@@ -18,7 +18,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = async () => {
-    await axios.get("https://two-wheeler-gilt.vercel.app/api/user/logout");
+    await axios.get("https://digital-marketing-liart-three.vercel.app/api/user/logout");
     localStorage.clear();
     setIsLoggedIn(false);
     navigate("/");

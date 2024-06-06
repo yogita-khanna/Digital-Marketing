@@ -12,7 +12,7 @@ const Login = () => {
     navigate("/register");
   }
   const handleChange = async () => {
-    const response = await axios.post("http://localhost:8585/api/user/login",
+    const response = await axios.post("https://digital-marketing-liart-three.vercel.app/api/user/login",
       { username: username, pw: Pw }
     );
     console.log(response.data);

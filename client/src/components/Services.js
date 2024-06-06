@@ -52,7 +52,7 @@ const Services = () => {
   const handleUpdate = async (id) => {
     try {
       await axios.put(
-        `http://localhost:8585/api/services/update/${id}`,
+        `https://digital-marketing-liart-three.vercel.app/api/services/update/${id}`,
         serviceData,
         {
           headers: {

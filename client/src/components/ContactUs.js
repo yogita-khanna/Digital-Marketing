@@ -33,7 +33,7 @@ const ContactUs = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8585/api/contact", {
+      const response = await axios.post("https://digital-marketing-liart-three.vercel.app/api/contact", {
         name,
         email,
         message,
