@@ -1,39 +1,38 @@
 const express = require('express');
 const router = express.Router();
 const Service = require('../models/Service');
-const User = require('../models/userSchema');  // Ensure you have the user schema/model
 const jwt = require('jsonwebtoken');
 
-// Middleware to check for authentication and authorization
-const requireAuth = (req, res, next) => {
-  const token = req.cookies.jwt;
-
-  if (!token) {
-    return res.status(401).send('No token provided');
+const requireAuth = (req, res, next) =>{
+  const token1 = req.cookies.jwt;
+  var token2 = false;
+  if(!req.cookies.username){
+    res.send('No student is Authorised')
   }
-
-  jwt.verify(token, 'kslkdlkhiy8iyiuiuh87y87yhhyg87yugug78uyiy9y87dls', (err, decodedToken) => {
-    if (err) {
-      return res.status(401).send('Invalid token');
+  User.find({username : req.cookies.username}).then(val =>{
+    if(val[0].role === 'admin'){
+      token2 = true;
+      if(token1 && token2){
+        jwt.verify(token1,'kslkdlkhiy8iyiuiuh87y87yhhyg87yugug78uyiy9y87dls', (err, decodedToken) =>{
+          if(err){
+            console.log('huhiuiuhihiuhihu');
+            console.log(err.message);
+          }else{
+            next();
+          }
+        });
+          }
+          else{
+            res.send('404 error no student in authorised');
+          }
     }
 
-    User.findById(decodedToken.id, (err, user) => {
-      if (err || !user) {
-        return res.status(401).send('Unauthorized');
-      }
-
-      if (user.role !== 'admin') {
-        return res.status(403).send('Admin access required');
-      }
-
-      req.user = user;  // Storing user information in request
-      next();
     });
-  });
+
 };
 
 // Route to add a new service (admin only)
-router.post('/add', requireAuth, async (req, res) => {
+router.post('/add',  async (req, res) => {
   const { title, description, icon } = req.body;
   if (!title || !description || !icon) {
     return res.status(400).send('All fields are required');
@@ -59,7 +58,7 @@ router.get('/', async (req, res) => {
 });
 
 // Route to delete a service (admin only)
-router.delete('/delete/:id', requireAuth, async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const service = await Service.findByIdAndDelete(id);
