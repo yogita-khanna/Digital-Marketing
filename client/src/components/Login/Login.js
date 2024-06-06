@@ -5,21 +5,20 @@ import LeftSidebar from "../LeftSidebar";
 
 const Login = () => {
   const navigate = useNavigate();
-  let [email, setEmail] = useState("");
+  let [username, setusername] = useState("");
   let [Pw, setPw] = useState("");
 
   function sendToreg() {
     navigate("/register");
   }
   const handleChange = async () => {
-    const response = await axios.post(
-      "https://two-wheeler-gilt.vercel.app/api/user/login",
-      { gname: email, pw: Pw }
+    const response = await axios.post("http://localhost:8585/api/user/login",
+      { username: username, pw: Pw }
     );
     console.log(response.data);
 
     if (response.data) {
-      localStorage.setItem("user", String(response.data.user));
+      localStorage.setItem("jwt", String(response.data.token));
       if (
         !localStorage.getItem("user") ||
         localStorage.getItem("user").length < 10
@@ -43,9 +42,9 @@ const Login = () => {
       <h1 className="text-4xl font-semibold mb-8 text-slate-500">Login</h1>
       <div className="w-80">
         <input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
+          type="username"
+          placeholder="username"
+          onChange={(e) => setusername(e.target.value)}
           className="border border-gray-300 rounded-md px-4 py-2 mb-4 w-full focus:outline-none focus:border-blue-500"
         />
         <input

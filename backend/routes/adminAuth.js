@@ -13,8 +13,8 @@ const createToken = (usr) => {
 };
 
 module.exports.signup_post = (req, res) => {
-  const { gname, pw } = req.body;
-  User.find({ email: gname })
+  const { gname, pw,username } = req.body;
+  User.find({ username: username })
     .then((user) => {
       console.log(user);
       if (user.length >= 1) {
@@ -27,7 +27,7 @@ module.exports.signup_post = (req, res) => {
           res.status(401).json({message : 'please enter email'});
         }
            else{
-            User.create({ email: gname, password: pw })
+            User.create({ email: gname, password: pw, username:username })
             .then((usr) => {
               res.json({ usr: usr._id, message: 'user has been successfully registered' });
             });
@@ -42,20 +42,19 @@ module.exports.signup_post = (req, res) => {
 };
 
 module.exports.login_post = (req, res) => {
-  const { gname, pw } = req.body;
-  console.log(gname);
-  console.log(pw);
-  User.login(gname, pw)
+  const { username, pw } = req.body;
+  console.log(username, pw);
+  User.login(username, pw)
     .then((u) => {
       if (u === "password did not match") {
         return res.status(401).json({ message: "password did not match" });
       } else if (u === "Cannot read property password of null") {
-        return res.status(400).json({ message: "please enter valid email and passwor" });
+        return res.status(400).json({ message: "please enter valid username and password" });
       
       } else {
         const token = createToken(u);
-        res.cookie("jwt", token, { maxAge: maxAge * 1000 });
-        res.json({ user: u._id, msg:'wuhuu logi created' });
+        // res.cookie("jwt", token, { maxAge: maxAge * 1000 });
+        res.json({ user: u._id, msg:'login successful', token:token });
 
       }
     })

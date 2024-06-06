@@ -3,6 +3,7 @@ import axios from "axios";
 import { fadeIn } from "react-animations";
 import styled, { keyframes } from "styled-components";
 import LeftSidebar from "./LeftSidebar";
+import Login from "./Login/Login";
 
 const fadeInAnimation = keyframes`${fadeIn}`;
 
@@ -19,11 +20,20 @@ const ContactUs = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  if ((!localStorage.getItem("user") || localStorage.getItem("user").length<10)) {
+    
+    return (
+      <div>
+        <Login />
+      </div>
+    );
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("https://two-wheeler-gilt.vercel.app/api/contact", {
+      const response = await axios.post("http://localhost:8585/api/contact", {
         name,
         email,
         message,

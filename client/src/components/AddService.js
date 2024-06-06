@@ -25,13 +25,11 @@ const AddService = () => {
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
+    let newServiceData = {...serviceData,token:localStorage.getItem("jwt") }
     try {
-      await axios.post("http://localhost:8585/api/services/add", serviceData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      await axios.post("http://localhost:8585/api/services/add", newServiceData);
       setMessage("Service added successfully");
       setServiceData({ title: "", description: "", icon: "" });
     } catch (error) {

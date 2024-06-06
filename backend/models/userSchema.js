@@ -12,8 +12,8 @@ const userSchema = new mongoose.Schema({
         type:String,
     },
 });
-userSchema.statics.login = function (email, password) {
-    return this.findOne({ email: email })
+userSchema.statics.login = function (username, password) {
+    return this.findOne({ username: username })
       .then((user) => {
         if (password == user.password) {
           return user;

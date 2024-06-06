@@ -41,37 +41,68 @@ const Navbar = () => {
     <nav className="w-full bg-[#78350f] fixed z-[1003] p-4 shadow-lg text-white">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-4">
-          <Link to="/" className="rounded hover:bg-black hover:text-white flex items-center p-2">
+          <Link
+            to="/"
+            className="rounded hover:bg-black hover:text-white flex items-center p-2"
+          >
             <IoHomeSharp />
             <span className="ml-2">Home</span>
           </Link>
         </div>
         <div className="md:hidden flex items-center">
           <button onClick={toggleMenu} className="focus:outline-none">
-            {isMenuOpen ? <HiOutlineX size={24} /> : <HiOutlineMenu size={24} />}
+            {isMenuOpen ? (
+              <HiOutlineX size={24} />
+            ) : (
+              <HiOutlineMenu size={24} />
+            )}
           </button>
         </div>
-        <div className={`md:flex items-center space-x-4 ${isMenuOpen ? "block" : "hidden"} md:block`}>
-          <Link to="/aboutus" className="rounded hover:bg-black hover:text-white flex items-center p-2">
+        <div
+          className={`md:flex items-center space-x-4 ${
+            isMenuOpen ? "block" : "hidden"
+          } md:block`}
+        >
+          <Link
+            to="/aboutus"
+            className="rounded hover:bg-black hover:text-white flex items-center p-2"
+          >
             <FaInfoCircle />
             <span className="ml-2">About Us</span>
           </Link>
-          <Link to="/services" className="rounded hover:bg-black hover:text-white flex items-center p-2">
+          <Link
+            to="/services"
+            className="rounded hover:bg-black hover:text-white flex items-center p-2"
+          >
             <MdMedicalServices />
             <span className="ml-2">Services</span>
           </Link>
-          {isLoggedIn?(
-            <Link to="/addServices" className="rounded hover:bg-black hover:text-white flex items-center p-2">
-            <RiAdminFill />
-            <span className="ml-2">Admin Dashboard</span>
-          </Link>
-          ):(<></>)}
-          
-          <Link to="/contactus" className="rounded hover:bg-black hover:text-white flex items-center p-2">
-            <IoMdContact />
-            <span className="ml-2">Contact Us</span>
-          </Link>
-          <Link to="/feedback" className="rounded hover:bg-black hover:text-white flex items-center p-2">
+          {isLoggedIn ? (
+            <Link
+              to="/addServices"
+              className="rounded hover:bg-black hover:text-white flex items-center p-2"
+            >
+              <RiAdminFill />
+              <span className="ml-2">Admin Dashboard</span>
+            </Link>
+          ) : (
+            <></>
+          )}
+          {isLoggedIn ? (
+            <Link
+              to="/contactus"
+              className="rounded hover:bg-black hover:text-white flex items-center p-2"
+            >
+              <IoMdContact />
+              <span className="ml-2">Contact Us</span>
+            </Link>
+          ) : (
+            <></>
+          )}
+          <Link
+            to="/feedback"
+            className="rounded hover:bg-black hover:text-white flex items-center p-2"
+          >
             <MdFeedback />
             <span className="ml-2">Feedback</span>
           </Link>
@@ -84,11 +115,17 @@ const Navbar = () => {
             </div>
           ) : (
             <>
-              <Link to="/login" className="rounded hover:bg-black hover:text-white flex items-center p-2">
+              <Link
+                to="/login"
+                className="rounded hover:bg-black hover:text-white flex items-center p-2"
+              >
                 <RiLoginCircleFill />
                 <span className="ml-2">Login</span>
               </Link>
-              <Link to="/register" className="rounded hover:bg-black hover:text-white flex items-center p-2">
+              <Link
+                to="/register"
+                className="rounded hover:bg-black hover:text-white flex items-center p-2"
+              >
                 <GiBuyCard />
                 <span className="ml-2">Register</span>
               </Link>
