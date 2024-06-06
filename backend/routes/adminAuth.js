@@ -41,20 +41,26 @@ module.exports.signup_post = (req, res) => {
     
 };
 
-module.exports.login_post = async (req, res) => {
+module.exports.login_post = (req, res) => {
   const { username, pw } = req.body;
-  try {
-    const user = await User.login(username, pw);
-    const token = createToken(user);
-    res.json({ user: user._id, msg: 'Login successful', token });
-  } catch (err) {
-    if (err.message === 'password did not match') {
-      return res.status(401).json({ message: "Password did not match" });
-    } else if (err.message === 'incorrect username') {
-      return res.status(400).json({ message: "Please enter valid username and password" });
-    }
-    res.status(500).json({ message: 'An error occurred' });
-  }
+  console.log(username, pw);
+  User.login(username, pw)
+    .then((u) => {
+      if (u === "password did not match") {
+        return res.status(401).json({ message: "password did not match" });
+      } else if (u === "Cannot read property password of null") {
+        return res.status(400).json({ message: "please enter valid username and password" });
+      
+      } else {
+        const token = createToken(u);
+        // res.cookie("jwt", token, { maxAge: maxAge * 1000 });
+        res.json({ user: u._id, msg:'login successful', token:token });
+
+      }
+    })
+    .catch((err) => {
+      res.json({message : 'error handled'});
+    });
 };
 
 module.exports.logout_get = (req, res) => {

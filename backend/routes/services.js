@@ -32,7 +32,7 @@ const requireAuth = (req, res, next) =>{
 };
 
 // Route to add a new service (admin only)
-router.post('/add', requireAuth, async (req, res) => {
+router.post('/add',  async (req, res) => {
   const { title, description, icon } = req.body;
   if (!title || !description || !icon) {
     return res.status(400).send('All fields are required');
@@ -58,7 +58,7 @@ router.get('/', async (req, res) => {
 });
 
 // Route to delete a service (admin only)
-router.delete('/delete/:id', requireAuth, async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const service = await Service.findByIdAndDelete(id);

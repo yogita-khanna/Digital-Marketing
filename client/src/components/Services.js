@@ -15,7 +15,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get("http://localhost:8585/api/services");
+        const response = await axios.get("https://digital-marketing-liart-three.vercel.app/api/services");
         setServices(response.data);
       } catch (error) {
         console.error("Error fetching services", error);
@@ -27,7 +27,7 @@ const Services = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8585/api/services/delete/${id}`, {
+      await axios.delete(`https://digital-marketing-liart-three.vercel.app/api/services/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

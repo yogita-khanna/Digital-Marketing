@@ -30,7 +30,7 @@ const requireAuth = (req, res, next) =>{
     });
 
 };
-router.post('/contact', requireAuth, async (req, res) => {
+router.post('/contact', async (req, res) => {
     try {
         const { name, email, message, phoneNo, serviceName } = req.body;
         const userId = req.session.user ? req.session.user._id : null;
